@@ -1,5 +1,28 @@
 # Teshtink
 
+## Creating new SqlConnection vs. reusing an already opened one
+
+Should we believe MS and just always create a new connection when one is needed?
+
+Yes we should. The difference is 10-20us and if you're going over network, your
+performance is fucked anyways.
+
+``` ini
+
+BenchmarkDotNet=v0.10.9, OS=Windows 8.1 (6.3.9600)
+Processor=Intel Core i7-6700K CPU 4.00GHz (Skylake), ProcessorCount=8
+Frequency=3914067 Hz, Resolution=255.4887 ns, Timer=TSC
+  [Host]     : .NET Framework 4.7 (CLR 4.0.30319.42000), 64bit RyuJIT-v4.7.2114.0
+  DefaultJob : .NET Framework 4.7 (CLR 4.0.30319.42000), 64bit RyuJIT-v4.7.2114.0
+
+
+```
+ |              Method |     Mean |    Error |    StdDev | Scaled | ScaledSD |
+ |-------------------- |---------:|---------:|----------:|-------:|---------:|
+ | OneConnectionOpened | 68.72 us | 1.115 us | 1.0433 us |   1.00 |     0.00 |
+ | AlwaysNewConnection | 81.58 us | 1.052 us | 0.9323 us |   1.19 |     0.02 |
+
+
 ## C# foo == null vs. foo.IsNull<TFoo>()
 
 I got called out on [SO](https://stackoverflow.com/) while spreading FUD on a extension that 

@@ -9,10 +9,22 @@ namespace nullextension_benchmark
     {
         static void Main(string[] args)
         {
+            //nulltest();
+            conntest();            
+        }
+        static void nulltest()
+        {
             var summary = BenchmarkRunner.Run<NullTestBenchmarks>(
                 ManualConfig.Create(DefaultConfig.Instance)
                             .With(Job.Dry)
                             .With(new InliningDiagnoser()));
+        }
+        static void conntest()
+        {
+            var summary = BenchmarkRunner.Run<ConnectionPoolingBenchmark>(
+                ManualConfig.Create(DefaultConfig.Instance)
+                            //.With(Job.Dry)
+                            );
         }
     }
 }
