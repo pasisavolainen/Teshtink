@@ -10,8 +10,18 @@ namespace nullextension_benchmark
         static void Main(string[] args)
         {
             //nulltest();
-            conntest();            
+            //conntest();
+            fddbench();
         }
+
+        private static void fddbench()
+        {
+            var summary = BenchmarkRunner.Run<FloatDoubleDecimalBench>(
+                ManualConfig.Create(DefaultConfig.Instance)
+                            //.With(Job.Dry)
+                            );
+        }
+
         static void nulltest()
         {
             var summary = BenchmarkRunner.Run<NullTestBenchmarks>(

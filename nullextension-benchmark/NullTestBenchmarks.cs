@@ -4,7 +4,7 @@ using BenchmarkDotNet.Attributes;
 namespace nullextension_benchmark
 {
     public class NullTestBenchmarks
-    {        
+    {
         private object[] _objs = new object [] { null, ""};
         private int counter;
 
